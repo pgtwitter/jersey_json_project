@@ -14,13 +14,17 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/")
 public class RootResource {
-	@Path("/")
-	@GET
-	@Produces(MediaType.TEXT_HTML)
-	public String get() throws IOException, URISyntaxException {
-		URL url = RootResource.class.getClassLoader().getResource("../index.html");
+	private static String filepath2filecontent(String filePath) throws IOException, URISyntaxException {
+		URL url = RootResource.class.getClassLoader().getResource(filePath);
 		byte[] fileContentBytes = Files.readAllBytes(Paths.get(url.toURI()));
 		String fileContent = new String(fileContentBytes, StandardCharsets.UTF_8);
 		return fileContent;
+	}
+
+	@Path("/")
+	@GET
+	@Produces(MediaType.TEXT_HTML + ";charset=utf-8")
+	public String get() throws IOException, URISyntaxException {
+		return filepath2filecontent("../index.html");
 	}
 }
