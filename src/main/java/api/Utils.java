@@ -26,7 +26,7 @@ public class Utils {
 	}
 
 	public static String filepath2filecontent(String filePath) throws IOException, URISyntaxException {
-		URL url = RootResource.class.getClassLoader().getResource(filePath);
+		URL url = Utils.class.getClassLoader().getResource(filePath);
 		byte[] fileContentBytes = Files.readAllBytes(Paths.get(url.toURI()));
 		String fileContent = new String(fileContentBytes, StandardCharsets.UTF_8);
 		return fileContent;
